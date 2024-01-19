@@ -1,0 +1,104 @@
+Unused Code
+
+ Integer  rand = getRandomNum(0,4);
+					 switch(rand) {
+					 case 0:
+						// left
+				 		xLoc -=1;
+				   case 1:
+						//right
+			 			xLoc +=1;
+					case 2:
+						//up
+		 				yLoc -=1;
+					case 3:
+		 			//down
+						yLoc +=1;
+					}
+					 if (xLoc == endPoint[0] && yLoc == endPoint[1]) {
+						 break;
+					 }
+					 else if (xLoc >= 0 && yLoc >= 0 && yLoc <= endPoint[1] &&xLoc <= endPoint[0]) {
+						path.add(new Integer[] {xLoc, yLoc});
+					//	System.out.println(xLoc + " " + yLoc);
+						
+					}
+										else {
+						xLoc = curVal[0]; yLoc = curVal[1];
+					}
+					
+					
+					
+					
+						   private Integer  xSize;
+	   private Integer ySize;
+	   
+	   private JFrame frame = new JFrame();
+	   
+	    private ArrayList<Integer[]> path = new ArrayList<Integer[]>();
+	
+	
+		public maze(Integer x , Integer y, String title) {
+	 		xSize =x;
+	 		ySize = y;		
+			
+	 		frame.setTitle(title);
+	 		frame.setVisible(true);
+	 		frame.setPreferredSize(new Dimension(xSize, ySize));
+ 			frame.add(this);
+			
+ 			frame.pack();
+
+	 	}
+	 	public void pathDots(Integer[] startPoint, Integer endPoint[]) {
+				 path.add(startPoint);
+				 Integer xLoc = startPoint[0];
+				 Integer yLoc = startPoint[1]+ 1;
+				 System.out.println(endPoint[0] + " " +  endPoint[1]);
+				
+				 while (!path.contains(endPoint)) {
+					 Integer[] curVal = new Integer[] {xLoc, yLoc};
+			
+				}
+				this.repaint();
+				System.out.println(path.get(path.size()-1));
+		}
+		
+		
+		public void randomDots() {
+			
+			for (int x = 0; x < xSize; x++) {
+				for (int y = 0; y <ySize; y++) {
+					Integer rand = getRandomNum(0,2);
+					if (rand == 0) {
+						Integer[] newVals = new Integer[2];
+						newVals[0] = x; newVals[1] = y;
+						path.add(newVals);
+
+					}
+					
+				}
+			}
+			this.repaint();
+		}
+		
+		public int getRandomNum(int min, int max) {
+		    Random random = new Random();
+		    return random.nextInt(max - min) + min;
+		}
+		
+		 public void paintComponent(Graphics g) {
+			 super.paintComponent(g);
+			 for (int x = 0; x < path.size(); x++) {
+				 Integer[] val = path.get(x);
+				 g.drawRect(val[0], val[1], 1,1);
+			 }
+		            }
+		               
+		        
+		        
+		    
+		
+
+	
+				
