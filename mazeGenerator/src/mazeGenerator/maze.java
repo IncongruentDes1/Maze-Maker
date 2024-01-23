@@ -9,20 +9,25 @@ public class maze extends JPanel{
 		//global variable set up
 		int cols;
 		int rows;
-		int size = 5;
+		int size = 15;
+		int halfsize = size/2;
 		public cell[][] boxHolding;
 
 		
 
 		
 		public maze(Integer height, Integer width) {
+			setPreferredSize(new Dimension(height+size, width+size));
+			
 			rows = height/size;
 			cols = width / size;
 			boxHolding = new cell[rows][cols];
 			drawMaze();
 			makeMaze(boxHolding[5][5]);
 			
+			
 		}
+		
 		
 		
 		public void drawMaze() {
@@ -31,6 +36,11 @@ public class maze extends JPanel{
 					boxHolding[x][y] = new cell(x,y);
 				}
 			}
+			// - make entrace/exit
+			boxHolding[0][0].left = false;
+			boxHolding[rows-1][cols-1].right = false;
+			boxHolding[rows-1][cols-1].top = false;
+			boxHolding[rows-1][cols-1].left = false;
 			
 			
 		}
@@ -165,11 +175,12 @@ public class maze extends JPanel{
 		 public void paintComponent(Graphics g) {
 		        super.paintComponent(g);
 		        
+		        
 		        for (int x = 0; x < rows; x++) {
 		        	for (int y = 0; y < cols; y++) {
 		        		cell Cell = boxHolding[x][y];
-						Integer xPos = x * size;
-						Integer yPos = y * size;
+						Integer xPos = (x) * size;
+						Integer yPos = (y) * size;
 		        		if (Cell.top) {
 							g.drawLine(xPos,yPos, xPos+size, yPos);
 						}
