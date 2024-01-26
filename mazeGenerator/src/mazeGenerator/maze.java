@@ -9,8 +9,7 @@ public class maze extends JPanel{
 		//global variable set up
 		int cols;
 		int rows;
-		int size = 15;
-		int halfsize = size/2;
+		int size = 20;
 		public cell[][] boxHolding;
 
 		
@@ -18,12 +17,12 @@ public class maze extends JPanel{
 		
 		public maze(Integer height, Integer width) {
 			setPreferredSize(new Dimension(height+size, width+size));
-			
+
 			rows = height/size;
 			cols = width / size;
 			boxHolding = new cell[rows][cols];
 			drawMaze();
-			makeMaze(boxHolding[5][5]);
+			makeMaze(boxHolding[10	][5]);
 			
 			
 		}
@@ -39,8 +38,7 @@ public class maze extends JPanel{
 			// - make entrace/exit
 			boxHolding[0][0].left = false;
 			boxHolding[rows-1][cols-1].right = false;
-			boxHolding[rows-1][cols-1].top = false;
-			boxHolding[rows-1][cols-1].left = false;
+
 			
 			
 		}
@@ -48,11 +46,9 @@ public class maze extends JPanel{
 			    ArrayList<cell> possiblePath = new ArrayList<cell>();
 			    possiblePath.add(origin);
 			
-				origin.visited = true;
-				System.out.println(origin);
-				System.out.println(hasDirectionleft(origin));
+
 				
-				while (possiblePath.size() != 0 ) {
+				while (possiblePath.size() != 0) {
 					if (hasDirectionleft(origin)) {
 						possiblePath.add(origin);
 					}
@@ -62,26 +58,26 @@ public class maze extends JPanel{
 						possiblePath.remove(noDir);
 					}
 					
+					
+					
 					Integer randomPick = getRandomNumber(0,4);
 					switch(randomPick) {
 						case(0):
 							Integer lowerY = origin.yPos -1;
-							if (lowerY >= 0 && lowerY < cols && boxHolding[origin.xPos][origin.yPos-1] != null) {
+							if (lowerY >= 0 ) {
 								cell above = boxHolding[origin.xPos][origin.yPos-1];
 								if ( above.visited == false) {
 									origin.top= false;
 									above.bottom = false;
-									origin = above;
 									above.visited = true;
+									origin = above;
 								}
 							}
-							else {
-								continue;
-							}
+							break;
 							
 					case(1):
 							Integer higherY = origin.yPos+1;
-						    if (higherY >= 0 &&  higherY < cols) {
+						    if (higherY < cols) {
 						    cell below = boxHolding[origin.xPos][origin.yPos + 1];
 						    if (below.visited == false) {
 							    origin.bottom = false;
@@ -90,13 +86,13 @@ public class maze extends JPanel{
 							    origin = below;
 						    }
 						    }
-							else {
-								continue;
-							}
+						    break;
+						    
+
 							
 					case(2):
 							Integer lowerX= origin.xPos-1;
-						    if (lowerX >= 0 && lowerX < rows && boxHolding[origin.xPos-1][origin.yPos] != null) {
+						    if (lowerX >= 0 ) {
 						    	cell left = boxHolding[origin.xPos-1][origin.yPos ];
 						    	if (left.visited == false) {
 							    	origin.left = false;
@@ -105,13 +101,12 @@ public class maze extends JPanel{
 							    	origin = left;
 						    	}
 						    }
-							else {
-								continue;
-							}
+						    break;
+
 							
 						case(3):
 							Integer higherX = origin.xPos +1;
-						    if (higherX >= 0 && higherX < rows &&  boxHolding[origin.xPos+1][origin.yPos] != null) {
+						    if (higherX < rows) {
 						    	cell right = boxHolding[origin.xPos+1][origin.yPos];
 						    	if(right.visited == false) {
 							    	origin.right = false;
@@ -120,57 +115,24 @@ public class maze extends JPanel{
 							    	origin = right;
 						    	}
 						    }
-							else {
-								continue;
-							}
+						    break;
 					}
-					super.repaint();
-					
+					super.repaint();					
 				}
 		}
 				
 				
-		public boolean hasDirectionleft(cell origin) {
-				if ( origin.xPos-1 >= 0 && boxHolding[origin.xPos -1][origin.yPos].visited == false ) {
-						return true;
-				}
-				if (origin.xPos+1 <rows && boxHolding[origin.xPos + 1][origin.yPos].visited == false) {
-						return true;
-					}
-				
-				if ( origin.yPos+1 < cols && boxHolding[origin.xPos][origin.yPos+1].visited == false ) {
-						return true;}
-					
-				if ( origin.yPos-1 >= 0  && boxHolding[origin.xPos][origin.yPos-1].visited == false) {
-						return true;
+		public boolean hasDirectionleft(cell origin) {			
+				if (( (origin.xPos-1) >= 0 && boxHolding[origin.xPos -1][origin.yPos].visited == false ) ||  ((origin.xPos+1) < rows  && boxHolding[origin.xPos + 1][origin.yPos].visited == false) || 
+				( (origin.yPos+1) < cols && boxHolding[origin.xPos][origin.yPos+1].visited == false ) || ( (origin.yPos-1) >= 0  && boxHolding[origin.xPos][origin.yPos-1].visited == false)){
+					return true;
 				}
 				return false;
 		}
 		
-			
-		
-		public void printBoxes() {
-			for (int x = 0; x < rows; x++) {
-				for (int y = 0; y < cols; y++) {
-					System.out.println(boxHolding[x][y].xPos + " " +boxHolding[x][y].yPos);
-				}
-			}
-		}
-		
-		
-		public boolean allCellsVisited() {
-			for(int i=0; i<boxHolding.length; i += 1) {
-		        for(int j=0; j<boxHolding[i].length; j += 1) {
-					if (boxHolding[i][j].xPos != null) {
-						return false;
-		        }
-		        
-			}
-		        }
-	        return true;
-		}
-			
-		
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// - PAINT
 		
 		 public void paintComponent(Graphics g) {
 		        super.paintComponent(g);
@@ -179,8 +141,9 @@ public class maze extends JPanel{
 		        for (int x = 0; x < rows; x++) {
 		        	for (int y = 0; y < cols; y++) {
 		        		cell Cell = boxHolding[x][y];
-						Integer xPos = (x) * size;
+						Integer xPos = (x ) * size;
 						Integer yPos = (y) * size;
+
 		        		if (Cell.top) {
 							g.drawLine(xPos,yPos, xPos+size, yPos);
 						}
