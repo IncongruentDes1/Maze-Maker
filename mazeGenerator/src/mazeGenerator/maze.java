@@ -16,14 +16,17 @@ public class maze extends JPanel{
 		
 
 		
-		public maze(Integer height, Integer width) {
+		public maze(Integer height, Integer width, Integer sizeSwap) {
 			setPreferredSize(new Dimension(height, width));
 
+			size = sizeSwap;
 			rows = height/size;
 			cols = width / size;
 			boxHolding = new cell[rows][cols];
+			
+
 			setUpMaze();
-			makeMaze(boxHolding[10][5]);
+			makeMaze(boxHolding[0][0]);
 			
 			
 		}
