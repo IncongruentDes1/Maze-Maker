@@ -11,31 +11,31 @@ public class maze extends JPanel{
 		int rows;
 		int size = 20;
 		public cell[][] boxHolding;
+		Boolean inverted = false;
 
 		
 
 		
 		public maze(Integer height, Integer width) {
-			setPreferredSize(new Dimension(height+size, width+size));
+			setPreferredSize(new Dimension(height, width));
 
 			rows = height/size;
 			cols = width / size;
 			boxHolding = new cell[rows][cols];
-			drawMaze();
-			makeMaze(boxHolding[10	][5]);
+			setUpMaze();
+			makeMaze(boxHolding[10][5]);
 			
 			
 		}
 		
 		
 		
-		public void drawMaze() {
+		public void setUpMaze() {
 			for (int x = 0; x < rows; x++) {
 				for (int y = 0; y < cols; y++) {
 					boxHolding[x][y] = new cell(x,y);
 				}
 			}
-			// - make entrace/exit
 			boxHolding[0][0].left = false;
 			boxHolding[rows-1][cols-1].right = false;
 
@@ -46,7 +46,6 @@ public class maze extends JPanel{
 			    ArrayList<cell> possiblePath = new ArrayList<cell>();
 			    possiblePath.add(origin);
 			
-
 				
 				while (possiblePath.size() != 0) {
 					if (hasDirectionleft(origin)) {
@@ -136,13 +135,24 @@ public class maze extends JPanel{
 		
 		 public void paintComponent(Graphics g) {
 		        super.paintComponent(g);
-		        
+
 		        
 		        for (int x = 0; x < rows; x++) {
 		        	for (int y = 0; y < cols; y++) {
 		        		cell Cell = boxHolding[x][y];
-						Integer xPos = (x ) * size;
+						Integer xPos = (x) * size;
 						Integer yPos = (y) * size;
+						
+						if (inverted) {
+							 g.setColor(Color.white);
+							 this.setBackground(Color.black);
+						}
+						else {
+							 g.setColor(Color.black);
+							 this.setBackground(Color.white);
+						}
+						
+						 xPos += (size/4);
 
 		        		if (Cell.top) {
 							g.drawLine(xPos,yPos, xPos+size, yPos);
@@ -162,6 +172,8 @@ public class maze extends JPanel{
 
 				
 		            }
+		 
+
 		 
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //RANDOM +
