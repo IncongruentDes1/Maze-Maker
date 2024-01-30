@@ -13,24 +13,13 @@ import java.util.Hashtable;
 
 
 public class main {
-	static Integer startWidth;
-	static Integer startHeight;
 
 	public static void main(String[] args) {
-		mazeInteface() ;
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		Integer width = (int)screenSize.getWidth();
-		Integer height = (int)screenSize.getHeight();
-		//makeMaze(width-15,height-85);
-		
-		
-		// - Notes on scaling
-		// smallest reasonable = 200x200
-		// largest reasonable = makeMaze(width-15,height-200);
-		
-	    
-
+		mazeInteface();
 	}
+	
+	
+	
 	// - user inputs
 	public static void mazeInteface() {
 		// - Frame set up
@@ -54,7 +43,7 @@ public class main {
 		slider xValuesSlider = new slider("X Values");
 		slider yValuesSlider = new slider("Y Values");
 		slider difficultySlider = new slider("Difficulty"); 
-		difficultySlider.setLabelTable(createLabelTable()); difficultySlider.setMinimum(0); difficultySlider.setMaximum(4); difficultySlider.setValue(1);
+		difficultySlider.setLabelTable(createLabelTable()); difficultySlider.setMinimum(0); difficultySlider.setMaximum(4); difficultySlider.setValue(2);
 		difficultySlider.setPreferredSize(new Dimension(300, difficultySlider.getPreferredSize().height));
 
 		
@@ -73,12 +62,7 @@ public class main {
 	    submitPanel.add(submitButton);
 	    submitButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-            		System.out.println("is inverted" + inverted.isSelected());
-            		System.out.println("X values slider value " + xValuesSlider.getValue());
-            		System.out.println("Y values slider value " + yValuesSlider.getValue());
-            		System.out.println("Difficulty values slider value " + difficultySlider.getValue());
-            		
+            public void actionPerformed(ActionEvent e) {            		
             		Integer difficultyDivisor = 0;
             		switch(difficultySlider.getValue()) {
             		case(0):
@@ -108,17 +92,8 @@ public class main {
 	    // - adding section
 	    controlFrame.add(instructionsPanel, BorderLayout.NORTH); controlFrame.add(choicesPanel,  BorderLayout.CENTER); controlFrame.add(submitPanel, BorderLayout.SOUTH);
 		controlFrame .pack();
-		
-		
-		
 	}
-	
-	public Integer sizeTranslation() {
-		
-		
-		return 0;
-		
-	}
+
 	
     private static Dictionary<Integer, JLabel> createLabelTable() {
         Dictionary<Integer, JLabel> labelTable = new Hashtable<>();
@@ -138,18 +113,11 @@ public class main {
 		frame.add(maze);		
 		frame.setVisible(true);
 	    frame.pack();
+	    frame.setSize(new Dimension(frame.getWidth() + maze.size, frame.getHeight() + maze.size));
 	    frame.setLocationRelativeTo(null);
-//	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    return maze;
-		
+
 	}
-	
-	// 
-
-	
-	
-
-
-	
 
 }

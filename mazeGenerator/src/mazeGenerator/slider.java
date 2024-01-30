@@ -1,12 +1,10 @@
 package mazeGenerator;
 
-
-import javax.swing.JFrame;
 import javax.swing.*;
-import java.awt.*;
-// slider class bc I'm lazy
 
-public class slider  extends JSlider{
+// JSlider class extension
+
+public class slider extends JSlider{
 	String name;
 	
 	slider(String Name){

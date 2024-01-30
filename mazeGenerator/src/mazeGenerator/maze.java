@@ -16,19 +16,16 @@ public class maze extends JPanel{
 		
 
 		
-		public maze(Integer height, Integer width, Integer sizeSwap) {
+		public maze(Integer height, Integer width, Integer setSize) {
 			setPreferredSize(new Dimension(height, width));
 
-			size = sizeSwap;
+			size = setSize;
 			rows = height/size;
 			cols = width / size;
 			boxHolding = new cell[rows][cols];
 			
-
 			setUpMaze();
 			makeMaze(boxHolding[0][0]);
-			
-			
 		}
 		
 		
@@ -41,10 +38,9 @@ public class maze extends JPanel{
 			}
 			boxHolding[0][0].left = false;
 			boxHolding[rows-1][cols-1].right = false;
-
-			
-			
 		}
+		
+		
 		public void makeMaze(cell origin) {
 			    ArrayList<cell> possiblePath = new ArrayList<cell>();
 			    possiblePath.add(origin);
@@ -138,24 +134,25 @@ public class maze extends JPanel{
 		
 		 public void paintComponent(Graphics g) {
 		        super.paintComponent(g);
-
 		        
+		        // - inverted color reverse
+				if (inverted) {
+					 g.setColor(Color.white);
+					 this.setBackground(Color.black);
+				}
+				else {
+					 g.setColor(Color.black);
+					 this.setBackground(Color.white);
+				}
+
+		        //- grid drawing
 		        for (int x = 0; x < rows; x++) {
 		        	for (int y = 0; y < cols; y++) {
 		        		cell Cell = boxHolding[x][y];
 						Integer xPos = (x) * size;
 						Integer yPos = (y) * size;
 						
-						if (inverted) {
-							 g.setColor(Color.white);
-							 this.setBackground(Color.black);
-						}
-						else {
-							 g.setColor(Color.black);
-							 this.setBackground(Color.white);
-						}
-						
-						 xPos += (size/4);
+						 xPos += (size/4);  yPos += (size/4);
 
 		        		if (Cell.top) {
 							g.drawLine(xPos,yPos, xPos+size, yPos);
@@ -171,10 +168,7 @@ public class maze extends JPanel{
 						}
 		        	}
 		        }
-		       
-
-				
-		            }
+		    }
 		 
 
 		 
@@ -211,8 +205,6 @@ public class maze extends JPanel{
 			public String toString() {
 				return (xPos + " "+ yPos);
 			}
-			
-
 
 		}
 	  
