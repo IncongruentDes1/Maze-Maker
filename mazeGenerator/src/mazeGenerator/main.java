@@ -26,7 +26,7 @@ public class main {
 		JFrame controlFrame = new JFrame("Maze set up");
 		controlFrame .setVisible(true);
 		controlFrame .setLocationRelativeTo(null);
-		controlFrame .setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//	controlFrame .setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// PANEL WORK
 		JPanel instructionsPanel = new JPanel();
